@@ -1,0 +1,106 @@
+default_model = "kimi-code/k3"
+
+[thinking]
+enabled = true
+effort = "high"
+
+[services.moonshot_search]
+base_url = "https://api.kimi.com/coding/v1/search"
+api_key = ""
+
+[services.moonshot_search.oauth]
+storage = "file"
+key = "oauth/kimi-code"
+
+[services.moonshot_fetch]
+base_url = "https://api.kimi.com/coding/v1/fetch"
+api_key = ""
+
+[services.moonshot_fetch.oauth]
+storage = "file"
+key = "oauth/kimi-code"
+
+[[permission.rules]]
+decision = "deny"
+scope = "user"
+pattern = "Bash(rm -rf*)"
+
+[[permission.rules]]
+decision = "deny"
+scope = "user"
+pattern = "Bash(git push --force*main*)"
+
+[[permission.rules]]
+decision = "deny"
+scope = "user"
+pattern = "Bash(git reset --hard*)"
+
+[[hooks]]
+event = "PreToolUse"
+matcher = "Bash"
+command = "~/.kimi-code/hooks/safety-check.sh"
+timeout = 5
+
+[[hooks]]
+event = "PostToolUse"
+matcher = "Edit|Write"
+command = "~/.kimi-code/hooks/auto-format.sh"
+timeout = 15
+
+[[hooks]]
+event = "Stop"
+command = "~/.kimi-code/hooks/session-log.sh"
+timeout = 5
+
+[[hooks]]
+event = "PostCompact"
+command = "~/.kimi-code/hooks/post-compact.sh"
+timeout = 5
+
+[[hooks]]
+event = "SessionStart"
+matcher = "startup"
+command = "~/.kimi-code/hooks/respawn-resume.sh"
+timeout = 5
+
+[providers."managed:kimi-code"]
+type = "kimi"
+api_key = ""
+base_url = "https://api.kimi.com/coding/v1"
+
+[providers."managed:kimi-code".oauth]
+storage = "file"
+key = "oauth/kimi-code"
+
+[models."kimi-code/kimi-for-coding"]
+provider = "managed:kimi-code"
+model = "kimi-for-coding"
+max_context_size = 262144
+capabilities = [ "thinking", "always_thinking", "image_in", "video_in", "tool_use" ]
+display_name = "K2.7 Coding"
+
+[models."kimi-code/kimi-for-coding-highspeed"]
+provider = "managed:kimi-code"
+model = "kimi-for-coding-highspeed"
+max_context_size = 262144
+capabilities = [ "thinking", "always_thinking", "image_in", "video_in", "tool_use" ]
+display_name = "K2.7 Coding Highspeed"
+
+[models."kimi-code/k3"]
+provider = "managed:kimi-code"
+model = "k3"
+max_context_size = 1048576
+capabilities = [ "thinking", "always_thinking", "image_in", "video_in", "tool_use" ]
+display_name = "K3"
+support_efforts = [ "low", "high", "max" ]
+default_effort = "high"
+
+[models."kimi-code/k3-256k"]
+provider = "managed:kimi-code"
+model = "k3-256k"
+max_context_size = 262144
+capabilities = [ "thinking", "always_thinking", "image_in", "tool_use" ]
+display_name = "K3-256k"
+support_efforts = [ "low", "high", "max" ]
+default_effort = "high"
+

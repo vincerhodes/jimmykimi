@@ -1,0 +1,37 @@
+{
+  "mcpServers": {
+    "emailmcp": {
+      "command": "/usr/bin/node",
+      "args": ["REPLACE_WITH_HOME/dev/emailmcp/dist/server.js"]
+    },
+    "emailmcp-kickoff": {
+      "command": "/usr/bin/node",
+      "args": ["REPLACE_WITH_HOME/dev/emailmcp/dist/server.js"],
+      "env": {
+        "SMTP_HOST": "smtp.yourmailprovider.com",
+        "SMTP_PORT": "587",
+        "SMTP_SECURE": "false",
+        "SMTP_USER": "REPLACE_WITH_SMTP_USER",
+        "SMTP_PASS": "REPLACE_WITH_SMTP_PASSWORD",
+        "FROM_ADDRESS": "REPLACE_WITH_FROM_ADDRESS",
+        "FROM_NAME": "REPLACE_WITH_FROM_NAME"
+      }
+    },
+    "inboxmcp": {
+      "command": "/usr/bin/node",
+      "args": ["REPLACE_WITH_HOME/dev/inboxmcp/dist/server.js"]
+    },
+    "vercel": {
+      "url": "https://mcp.vercel.com"
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"]
+    },
+    "supabase": {
+      "command": "npx",
+      "args": ["-y", "@supabase/mcp-server-supabase@latest", "--access-token", "REPLACE_WITH_SUPABASE_ACCESS_TOKEN"],
+      "enabledTools": ["search_docs", "list_organizations", "list_projects", "get_project", "list_tables", "list_extensions", "list_migrations", "execute_sql", "get_logs", "get_advisors", "get_project_url", "generate_typescript_types"]
+    }
+  }
+}
