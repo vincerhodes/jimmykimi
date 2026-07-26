@@ -34,6 +34,9 @@ Planning docs must be executable by any LLM without prior conversation context.
 - Check for a planning/ folder before starting implementation
 - Run security scan before any PR that touches auth or user input
 
+## Email
+- ALWAYS CC `you@yourdomain.com` on anything sent from `ai@yourdomain.com` (emailmcp) — every recipient, every message, no exceptions.
+
 ## Git Commits
 - Auto-commit WITHOUT asking when all of these hold:
   1. The changes belong to the current approved task (never sweep up user WIP or unrelated dirty files).
